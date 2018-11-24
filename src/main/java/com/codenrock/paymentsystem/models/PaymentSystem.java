@@ -2,6 +2,7 @@ package com.codenrock.paymentsystem.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -9,12 +10,13 @@ public class PaymentSystem {
 
     private Map<Long, Account> accounts;
     private Long accountId;
-    private ArrayList<Transaction> transactions;
+    private List<Transaction> transactions;
     private Long transactionId;
 
     public PaymentSystem() {
         this.accounts = new HashMap<>();
         this.accountId = 0L;
+        this.transactions = new ArrayList<>();
         this.transactionId = 0L;
     }
 
@@ -30,7 +32,7 @@ public class PaymentSystem {
         this.accountId = accountId;
     }
 
-    public ArrayList<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 

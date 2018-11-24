@@ -1,6 +1,6 @@
 package com.codenrock.paymentsystem.services.transactions;
 
-import com.codenrock.paymentsystem.exceptions.TransactionAmountMoreTnanBallance;
+import com.codenrock.paymentsystem.exceptions.TransactionAmountMoreThanBalance;
 import com.codenrock.paymentsystem.models.Transaction;
 import com.codenrock.paymentsystem.repositories.transactions.TransactionsRepositoryInterface;
 import com.codenrock.paymentsystem.services.accounts.AccountsServiceInterface;
@@ -36,21 +36,21 @@ public class TransactionsServiceImpl implements TransactionsServiceInterface {
         transaction.setFromAccountId(fromAccountId);
         transaction.setToAccountId(toAccountId);
         transaction.setAmount(amount);
-        return new Transaction();
+        return transaction;
     }
 
     @Override
     public void makeTransaction(Long fromAccountId,
                                 Long toAccountId,
-                                BigDecimal amount) throws TransactionAmountMoreTnanBallance {
+                                BigDecimal amount) throws TransactionAmountMoreThanBalance {
         Transaction transaction = createTransaction(fromAccountId, toAccountId, amount);
         BigDecimal balanceFrom = accountsService.getAccountBalanceById(fromAccountId);
         BigDecimal balanceTo = accountsService.getAccountBalanceById(toAccountId);
-        if (amount.compareTo(balanceFrom) == -1) {
+        if (balanceFrom.compareTo(amount) == -1) {
             transaction.setComplete(false);
             transaction.setComment("Transaction canceled, not enough money on account");
             transactionsRepository.saveTransaction(transaction);
-            throw new TransactionAmountMoreTnanBallance();
+            throw new TransactionAmountMoreThanBalance();
         } else {
             accountsService.setNewBalanceToAccount(fromAccountId, balanceFrom.subtract(amount));
             accountsService.setNewBalanceToAccount(toAccountId, balanceTo.add(amount));

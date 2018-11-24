@@ -1,6 +1,7 @@
 package com.codenrock.paymentsystem.services.system;
 
 import com.codenrock.paymentsystem.models.PaymentSystem;
+import com.codenrock.paymentsystem.models.Transaction;
 import com.codenrock.paymentsystem.repositories.system.PaymentSystemRepositoryInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,5 +56,10 @@ public class PaymentSystemServiceImpl implements PaymentSystemServiceInterface {
     @Override
     public Long getIdForNewTransaction() {
         return paymentSystemRepository.getIdForNewTransaction();
+    }
+
+    @Override
+    public void saveTransaction(Transaction transaction) {
+        paymentSystemRepository.saveTransaction(transaction);
     }
 }

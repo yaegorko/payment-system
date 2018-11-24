@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -63,6 +65,7 @@ public class PaymentSystemRepositoryImpl implements PaymentSystemRepositoryInter
 
     @Override
     public void saveTransaction(Transaction transaction) {
-        paymentSystem.getTransactions().add(transaction);
+        List<Transaction> transactions = paymentSystem.getTransactions();
+        transactions.add(transaction);
     }
 }
