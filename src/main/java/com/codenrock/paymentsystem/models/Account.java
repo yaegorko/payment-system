@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Account {
 
     private Long id;
+
     private BigDecimal balance;
 
     public Account(Long id) {
@@ -16,6 +17,14 @@ public class Account {
     public Account(Long id, BigDecimal amount) {
         this.id = id;
         this.balance = amount;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     @Override

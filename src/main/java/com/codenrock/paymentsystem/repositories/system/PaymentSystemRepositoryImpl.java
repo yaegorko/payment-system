@@ -2,6 +2,7 @@ package com.codenrock.paymentsystem.repositories.system;
 
 import com.codenrock.paymentsystem.models.Account;
 import com.codenrock.paymentsystem.models.PaymentSystem;
+import com.codenrock.paymentsystem.models.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ public class PaymentSystemRepositoryImpl implements PaymentSystemRepositoryInter
     private static final Logger logger = LoggerFactory.getLogger(PaymentSystemRepositoryImpl.class);
 
     private PaymentSystem paymentSystem;
-    private Long accountId = 0L;
+    private Long accountId;
 
     private PaymentSystem createPaymentSystem() {
         logger.info("Payment System created");
@@ -33,13 +34,35 @@ public class PaymentSystemRepositoryImpl implements PaymentSystemRepositoryInter
 
     @Override
     public void addAccount() {
+        accountId = paymentSystem.getAccountId();
         paymentSystem.getAccounts().put(accountId, new Account(accountId));
         logger.info("Create Account with id: " + accountId++ + ", start balance = 0");
+        paymentSystem.setAccountId(accountId);
     }
 
     @Override
     public void addAccount(BigDecimal amount) {
+        accountId = paymentSystem.getAccountId();
         paymentSystem.getAccounts().put(accountId, new Account(accountId, amount));
         logger.info("Create Account with id: " + accountId++ + ", start balance = " + amount);
+        paymentSystem.setAccountId(accountId);
+    }
+
+    @Override
+    public Account getAccountById(Long accountId) {
+        return paymentSystem.getAccounts().get(accountId);
+    }
+
+    @Override
+    public Long getIdForNewTransaction() {
+        Long idForNewTransaction = paymentSystem.getTransactionId();
+        Long nextTransactionId = idForNewTransaction + 1;
+        paymentSystem.setTransactionId(nextTransactionId);
+        return idForNewTransaction;
+    }
+
+    @Override
+    public void saveTransaction(Transaction transaction) {
+        paymentSystem.getTransactions().add(transaction);
     }
 }

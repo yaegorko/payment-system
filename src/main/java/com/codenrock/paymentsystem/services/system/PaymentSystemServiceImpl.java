@@ -41,4 +41,19 @@ public class PaymentSystemServiceImpl implements PaymentSystemServiceInterface {
     public void addAccount(BigDecimal amount) {
         paymentSystemRepository.addAccount(amount);
     }
+
+    @Override
+    public BigDecimal getAccountBalanceById(Long accountId) {
+        return paymentSystemRepository.getAccountById(accountId).getBalance();
+    }
+
+    @Override
+    public void setNewBalanceToAccount(Long accountId, BigDecimal newBalance) {
+        paymentSystemRepository.getAccountById(accountId).setBalance(newBalance);
+    }
+
+    @Override
+    public Long getIdForNewTransaction() {
+        return paymentSystemRepository.getIdForNewTransaction();
+    }
 }

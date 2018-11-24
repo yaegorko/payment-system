@@ -25,4 +25,14 @@ public class AccountsServiceImpl implements AccountsServiceInterface {
     public void addNewAccount(BigDecimal amount) {
         accountsRepository.addNewAccount(amount);
     }
+
+    @Override
+    public BigDecimal getAccountBalanceById(Long accountId) {
+        return accountsRepository.getAccountBalanceById(accountId);
+    }
+
+    @Override
+    public void setNewBalanceToAccount(Long accountId, BigDecimal newBalance) {
+        accountsRepository.setNewBalanceToAccount(accountId, newBalance);
+    }
 }

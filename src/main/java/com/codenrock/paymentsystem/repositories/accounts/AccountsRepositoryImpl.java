@@ -31,4 +31,14 @@ public class AccountsRepositoryImpl implements AccountsRepositoryInterface {
     public void addNewAccount(BigDecimal amount) {
         paymentSystemService.addAccount(amount);
     }
+
+    @Override
+    public BigDecimal getAccountBalanceById(Long accountId) {
+        return paymentSystemService.getAccountBalanceById(accountId);
+    }
+
+    @Override
+    public void setNewBalanceToAccount(Long accountId, BigDecimal newBalance) {
+        paymentSystemService.setNewBalanceToAccount(accountId, newBalance);
+    }
 }
